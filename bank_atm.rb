@@ -1,6 +1,10 @@
 $LOAD_PATH << '.'
 require 'validations'
 require 'models'
+# require 'date'
+
+# d = Date.today
+# puts d
 
 #Demo data
 p1 = Person.new("John", "Developer", "j@yahoo.com")
