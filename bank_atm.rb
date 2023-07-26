@@ -1,3 +1,6 @@
+$LOAD_PATH << '.'
+require 'validations'
+
 class BankUser
 
     @@users_count = 0
@@ -25,14 +28,6 @@ class BankUser
 
     def to_string
         return "name: #{@name}, job: #{@job}, email: #{@email}, PIN: #{@pin}, balance: #{@balance}"
-    end
-end
-
-def validate_amout(amount)
-    if amount > 0
-        return true
-    else
-        return false
     end
 end
 
@@ -70,7 +65,7 @@ loop do
             if input_pin == current_user.pin
                 puts "How much would you like to deposit, #{input_name}?"
                 input_amount = gets.chomp.to_i
-                unless validate_amout(input_amount)
+                unless Validations.validate_amout(input_amount)
                     puts "Invalid amount"
                 else
                     current_user.addBalance(input_amount)
@@ -92,7 +87,7 @@ loop do
             if input_pin == current_user.pin
                 puts "How much would you like to withdraw, #{input_name}?"
                 input_amount = gets.chomp.to_i
-                unless validate_amout(input_amount)
+                unless Validations.validate_amout(input_amount)
                     puts "Invalid amount"
                 else
                     #verify balance for sufficient funds
