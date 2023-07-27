@@ -1,12 +1,8 @@
 $LOAD_PATH << '.'
 require 'validations'
 require 'models'
-# require 'date'
 
-# d = Date.today
-# puts d
-
-#Demo data
+#Begin of Demo data
 p1 = Person.new("John", "Developer", "j@yahoo.com")
 p2 = Person.new("Tudor", "Climbing instructor", "t@tahoo.com")
 
@@ -15,12 +11,15 @@ persons << p1
 persons << p2
 
 b1 = BankAccount.new("1234", p1, 150)
-b2 = BankAccount.new("5555", p1, 5500)
+b2 = BankAccount.new("5555", p1, 5500)# with 1 widthrawal already
 b3 = BankAccount.new("9999", p2, 7000)
 
+b2.withdraw(4000)
+#End of demo data
+
+#Start of the flow
 loop do
-    #Start of the flow
-    puts "Welcome to the ATM!"
+    puts "\nWelcome to the ATM!"
     puts "Select an option: "
     #Options
     puts "1. Deposit funds"

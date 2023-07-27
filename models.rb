@@ -87,5 +87,3 @@ class Transaction
       bank_account.add_transaction(self)
     end
 end
-
-      
