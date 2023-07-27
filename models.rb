@@ -1,4 +1,7 @@
 require 'date'
+require 'validations' 
+
+AccountValidations = Validations::AccountValidations
 
 class Person
     attr_accessor :name, :job, :email, :bank_accounts
@@ -19,7 +22,7 @@ class Person
     end
 
     def to_string
-        return "name: #{@name}, job: #{@job}, email: #{email}, bank_accounts: #{@bank_accounts.length}"
+      "name: #{@name}, job: #{@job}, email: #{email}, bank_accounts: #{@bank_accounts.length}"
     end
 end
 
@@ -35,11 +38,11 @@ class BankAccount
     end
   
     def pin_matches?(input_pin)
-        @pin == input_pin
-      end
+      @pin == input_pin
+    end
 
     def deposit(amount)
-      if Validations.validate_amount(amount)
+      if AccountValidations.validate_amount(amount)
         @balance += amount
         #add the transaction
         Transaction.new(amount, "deposit", self)
@@ -50,9 +53,9 @@ class BankAccount
     end
   
     def withdraw(amount)
-        if Validations.validate_amount(amount)# amount > 0
-            if Validations.validate_withdrawal(amount, @balance) #amount <= @balance
-                if Validations.validate_withdrawal_daily_limit(amount, @transactions)
+        if AccountValidations.validate_amount(amount)# amount > 0
+            if AccountValidations.validate_withdrawal(amount, @balance) #amount <= @balance
+                if AccountValidations.validate_withdrawal_daily_limit(amount, @transactions)
                     @balance -= amount
                     #add the transaction
                     Transaction.new(amount, "withdrawal", self)
@@ -61,7 +64,7 @@ class BankAccount
                     puts "You have exceeded your daily withdrawal limit"
                 end
             else
-            puts "Insufficient funds"
+                puts "Insufficient funds"
             end
         else
             puts "Invalid amount"
@@ -69,21 +72,21 @@ class BankAccount
     end
 
     def add_transaction(transaction)
-        @transactions << transaction
+      @transactions << transaction
     end
 
     def to_string
-        return "balance: #{@balance}, pin: #{@pin}, person: #{@person.name}, transactions: #{@transactions.length}"
+      "balance: #{@balance}, pin: #{@pin}, person: #{@person.name}, transactions: #{@transactions.length}"
     end
 end
 
 class Transaction
-    attr_accessor :amount, :type, :date
+  attr_accessor :amount, :type, :date
   
-    def initialize(amount, type, bank_account)
-      @amount = amount
-      @type = type
-      @date = Date.today
-      bank_account.add_transaction(self)
-    end
+  def initialize(amount, type, bank_account)
+    @amount = amount
+    @type = type
+    @date = Date.today
+    bank_account.add_transaction(self)
+  end
 end

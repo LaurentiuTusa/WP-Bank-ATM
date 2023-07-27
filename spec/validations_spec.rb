@@ -3,7 +3,6 @@ require_relative "../models"
 
 #rspec file for testing the validations.rb file
 RSpec.describe Validations do
-
     describe ".validate_amount" do
         context "Compares the amount to 0" do
             it "returns false if amount is less than or equal to 0" do
@@ -57,7 +56,6 @@ end
 
 #rspec file for testing the Person class
 RSpec.describe Person do
-
     describe ".add_bank_account" do
         it "Adds a bank account to the person p1 upon the creation of the account" do
             p1 = Person.new("Alex", "Doctor", "alex@yahoo.com")
@@ -70,7 +68,6 @@ end
 
 #rspec file for testing the BankAccount class
 RSpec.describe BankAccount do
-
     describe ".deposit" do
         it "Adds the amount to the balance if the amount is valid" do
             p1 = Person.new("Alex", "Doctor", "alex@yahoo.com")
